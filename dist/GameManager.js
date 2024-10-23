@@ -24,7 +24,9 @@ class GameManager {
     addUser(user) {
         this.users.push(user);
         this.addHandler(user);
+        console.log('run into addUser in GameManager');
         console.log(this.users);
+        console.log(this.pendingGameId);
     }
     // xoa user khoi phong
     removeUser(socket) {
@@ -40,9 +42,11 @@ class GameManager {
         this.games = this.games.filter((g) => g.game_id !== game_id);
     }
     addHandler(user) {
+        console.log(`run into addUser in addHandler`);
         user.socket.on('message', (data) => __awaiter(this, void 0, void 0, function* () {
             var _a;
             const message = JSON.parse(data.toString());
+            console.log(`message: ${message}`);
             if (message.type === messages_1.INIT_GAME) {
                 //  if game is pending
                 if (this.pendingGameId) {
@@ -67,7 +71,7 @@ class GameManager {
                     this.pendingGameId = null;
                 }
                 else {
-                    const game = new Game_1.Game(user.user_id, "");
+                    const game = new Game_1.Game(user.user_id, null);
                     this.games.push(game);
                     this.pendingGameId = game.game_id;
                     SocketManager_1.socketManager.addUser(user, game.game_id);
@@ -78,7 +82,7 @@ class GameManager {
                 }
             }
             if (message.type === messages_1.MOVE) {
-                const game_id = message.payload.game_id;
+                const game_id = message.game_id;
                 const game = this.games.find(game => game.game_id === game_id);
                 if (game) {
                     game.makeMove(user, message.payload.move);
@@ -88,7 +92,7 @@ class GameManager {
                 }
             }
             if (message.type === messages_1.EXIT_GAME) {
-                const game_id = message.payload.game_id;
+                const game_id = message.game_id;
                 const game = this.games.find((game) => game.game_id === game_id);
                 if (game) {
                     game.exitGame(user);

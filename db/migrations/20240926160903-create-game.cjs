@@ -31,7 +31,7 @@ module.exports = {
       },
       white_player_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: 'users',
           key: 'user_id'
@@ -41,7 +41,7 @@ module.exports = {
       },
       black_player_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: 'users',
           key: 'user_id'

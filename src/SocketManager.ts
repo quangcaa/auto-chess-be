@@ -1,15 +1,14 @@
 import { randomUUID } from 'crypto'
 import { WebSocket } from 'ws'
-import { userJwtClaims } from './auth'
 
 export class User {
   public socket: WebSocket
   public id: string
   public user_id: string
 
-  constructor(socket: WebSocket, userJwtClaims: userJwtClaims) {
+  constructor(socket: WebSocket, user_id: string) {
     this.socket = socket
-    this.user_id = userJwtClaims.user_id
+    this.user_id = user_id
     this.id = randomUUID()
   }
 }
@@ -39,6 +38,8 @@ class SocketManager {
       user,
     ])
     this.userRoomMappping.set(user.user_id, room_id)
+
+    console.log(this.interestedSockets)
   }
 
   broadcast(room_id: string, message: string) {

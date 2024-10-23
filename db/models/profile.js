@@ -21,9 +21,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   Profile.init({
     user_id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         references: {
           model: 'users',

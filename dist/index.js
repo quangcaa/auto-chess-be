@@ -34,7 +34,6 @@ wss.on("connection", function connection(ws, req) {
     //@ts-ignore
     const token = url.parse(req.url, true).query.token;
     const user = (0, auth_1.extractAuthUser)(token, ws);
-    console.log(user);
     gameManager.addUser(user);
     ws.on('close', () => gameManager.removeUser(ws));
 });

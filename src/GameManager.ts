@@ -23,7 +23,9 @@ export class GameManager {
         this.users.push(user)
         this.addHandler(user)
 
+        console.log('run into addUser in GameManager')
         console.log(this.users)
+        console.log(this.pendingGameId)
     }
 
     // xoa user khoi phong
@@ -42,9 +44,11 @@ export class GameManager {
     }
 
     private addHandler(user: User) {
+        console.log(`run into addUser in addHandler`)
+
         user.socket.on('message', async (data) => {
             const message = JSON.parse(data.toString())
-
+            console.log(`message: ${message}`)
             if (message.type === INIT_GAME) {
                 //  if game is pending
                 if (this.pendingGameId) {
@@ -74,7 +78,7 @@ export class GameManager {
                     await game?.updateSecondPlayer(user.user_id)
                     this.pendingGameId = null
                 } else {
-                    const game = new Game(user.user_id, "")
+                    const game = new Game(user.user_id, null)
                     this.games.push(game)
                     this.pendingGameId = game.game_id
 
@@ -90,7 +94,7 @@ export class GameManager {
             }
 
             if (message.type === MOVE) {
-                const game_id = message.payload.game_id
+                const game_id = message.game_id
                 const game = this.games.find(game => game.game_id === game_id)
 
                 if (game) {
@@ -102,7 +106,7 @@ export class GameManager {
             }
 
             if (message.type === EXIT_GAME) {
-                const game_id = message.payload.game_id
+                const game_id = message.game_id
                 const game = this.games.find((game) => game.game_id === game_id)
 
                 if (game) {

@@ -44,7 +44,7 @@ export function isPromoting(chess: Chess, from: Square, to: Square) {
 export class Game {
     public game_id: string
     public player1: string
-    public player2: string
+    public player2: string | null
     public board: Chess
     public result: GAME_RESULT | null = null
     private moveCount = 0
@@ -55,7 +55,7 @@ export class Game {
     private player1TimeConsumed = 0
     private player2TimeConsumed = 0
 
-    constructor(player1: string, player2: string, game_id?: string, startTime?: Date) {
+    constructor(player1: string, player2: string | null, game_id?: string, startTime?: Date) {
         this.player1 = player1
         this.player2 = player2
         this.board = new Chess()

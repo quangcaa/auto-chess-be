@@ -9,7 +9,7 @@ router.post('/signup', validateSignup, AuthController.signup)
 router.post('/verify-email', isAuth, AuthController.verifyEmail)
 router.post('/login', AuthController.login)
 router.post('/refresh', AuthController.refreshToken)
-router.post('/logout', isAuth, AuthController.logout)
+router.post('/logout', AuthController.logout)
 router.post('/forgot-password', AuthController.forgotPassword)
 router.post('/reset-password/:token', AuthController.resetPassword)
 

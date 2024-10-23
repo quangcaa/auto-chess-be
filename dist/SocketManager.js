@@ -3,9 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.socketManager = exports.User = void 0;
 const crypto_1 = require("crypto");
 class User {
-    constructor(socket, userJwtClaims) {
+    constructor(socket, user_id) {
         this.socket = socket;
-        this.user_id = userJwtClaims.user_id;
+        this.user_id = user_id;
         this.id = (0, crypto_1.randomUUID)();
     }
 }
@@ -28,6 +28,7 @@ class SocketManager {
             user,
         ]);
         this.userRoomMappping.set(user.user_id, room_id);
+        console.log(this.interestedSockets);
     }
     broadcast(room_id, message) {
         const users = this.interestedSockets.get(room_id);

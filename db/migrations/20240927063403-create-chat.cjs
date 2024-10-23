@@ -20,7 +20,7 @@ module.exports = {
       },
       sender_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: 'users',
           key: 'user_id'
@@ -30,7 +30,7 @@ module.exports = {
       },
       receiver_id: {
         allowNull: false,
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         references: {
           model: 'users',
           key: 'user_id'

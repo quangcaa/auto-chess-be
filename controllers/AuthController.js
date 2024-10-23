@@ -162,13 +162,13 @@ class AuthController {
                 }
             })
             if (!user) {
-                return res.status(400).json({ success: false, message: 'Username doesn\'t exist' })
+                return res.status(400).json({ success: false, message: 'Invalid username or password' })
             }
 
             // check password
             const isPasswordValid = bcryptjs.compareSync(password, user.password) // dong bo
             if (!isPasswordValid) {
-                return res.status(400).json({ success: false, message: 'Your password is invalid' })
+                return res.status(400).json({ success: false, message: 'Invalid username or password' })
             }
 
             // generate access token
